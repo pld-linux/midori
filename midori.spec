@@ -1,15 +1,19 @@
 Summary:	Web browser based on GTK+ WebCore
+Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
 Version:	0.0.3
 Release:	1
-License:	GPL
+License:	GPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://software.twotoasts.de/media/midori/%{name}-%{version}.tar.gz
 # Source0-md5:	95cb26bc180693ea9d1c606d4bc9aee6
 URL:		http://software.twotoasts.de/?page=midori
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel >= 2:2.6
 BuildRequires:	gtk-webcore-nrcit-libs-devel
 BuildRequires:	libsexy-devel
+BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.198
+Requires(post,postun):	desktop-file-utils
 Requires:	gtk-webcore-nrcore
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -17,6 +21,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Midori is a lightweight GTK+ 2 web browser based on GTK+ WebCore. It
 features tabs, windows and session management, bookmarks stored with
 XBEL, searchbox based on OpenSearch, and user scripts support.
+
+%description -l pl.UTF-8
+Midori to lekka przeglądarka dla GTK+ 2 oparta na GTK+ WebCore.
+Obsługuje panele, okienka, zarządzanie sesjami, zakładki przechowywane
+przy użyciu XBEL, okno wyszukiwania oparte na OpenSearch oraz skrypty
+użytkownika.
 
 %prep
 %setup -q
@@ -36,6 +46,7 @@ cat > $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop <<EOF
 Encoding=UTF-8
 Name=Midori
 Comment=Lightweight web browser
+Comment[pl]=Lekka przeglądarka WWW
 Exec=%{name}
 Icon=web_browser_section.png
 Terminal=false
@@ -44,14 +55,14 @@ StartupNotify=true
 Categories=GNOME;GTK;Network;WebBrowser;
 EOF
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
 %update_desktop_database_post
 
 %postun
 %update_desktop_database_postun
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
