@@ -1,15 +1,15 @@
 Summary:	Web browser based on GTK+ WebCore
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.0.12
+Version:	0.0.13
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://software.twotoasts.de/media/midori/%{name}-%{version}.tar.gz
-# Source0-md5:	f69826ece3b8a34ef431d2de57b60d96
+# Source0-md5:	e67bc748c11606013a90a0760a843967
 URL:		http://software.twotoasts.de/?page=midori
 BuildRequires:	gtk+2-devel >= 2:2.6
-BuildRequires:	gtk-webkit-devel >= 0.0-0.r26041.1
+BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r27953.1
 BuildRequires:	libsexy-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.198
