@@ -9,6 +9,8 @@ Source0:	http://software.twotoasts.de/media/midori/%{name}-%{version}.tar.gz
 # Source0-md5:	58d1b7ed282540030eb1b5803b760865
 Patch0:		%{name}-webkit.patch
 URL:		http://software.twotoasts.de/?page=midori
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gtk+2-devel >= 2:2.6
 BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r30885.2
 BuildRequires:	libsexy-devel
