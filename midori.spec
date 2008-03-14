@@ -7,9 +7,10 @@ License:	GPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://software.twotoasts.de/media/midori/%{name}-%{version}.tar.gz
 # Source0-md5:	58d1b7ed282540030eb1b5803b760865
+Patch0:		%{name}-webkit.patch
 URL:		http://software.twotoasts.de/?page=midori
 BuildRequires:	gtk+2-devel >= 2:2.6
-BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r29723.1
+BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r30885.2
 BuildRequires:	libsexy-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.198
@@ -29,8 +30,13 @@ użytkownika.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure
 %{__make}
 
