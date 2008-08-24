@@ -1,0 +1,13 @@
+Files midori-0.0.20.orig/messages.mo and midori-0.0.20.fixlocale/messages.mo differ
+diff -Nur midori-0.0.20.orig/po/fr.po midori-0.0.20.fixlocale/po/fr.po
+--- midori-0.0.20.orig/po/fr.po	2008-08-23 19:22:05.000000000 -0600
++++ midori-0.0.20.fixlocale/po/fr.po	2008-08-23 21:39:31.000000000 -0600
+@@ -731,7 +731,7 @@
+ #: ../midori/midori-browser.c:3807
+ #, c-format
+ msgid "Unexpected setting '%s'"
+-msgstr "Réglages des polices"
++msgstr "Réglages des polices '%s'"
+ 
+ #: ../midori/midori-panel.c:147
+ msgid "Appearance of the shadow around each panel"
