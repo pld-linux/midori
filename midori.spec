@@ -13,6 +13,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gtk+2-devel >= 2:2.6
 BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r32822.1
+BuildRequires:	intltool
 BuildRequires:	libsexy-devel
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -38,6 +39,7 @@ użytkownika.
 %build
 %{__glib_gettextize}
 %{__libtoolize}
+%{__intltoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
