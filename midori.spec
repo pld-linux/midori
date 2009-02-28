@@ -1,25 +1,27 @@
 Summary:	Web browser based on GTK+ WebCore
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.1.0
+Version:	0.1.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://goodies.xfce.org/releases/midori/%{name}-%{version}.tar.bz2
-# Source0-md5:	b0316a886dc22c766ff680324b59b994
-Patch0:		%{name}-xml2.patch
-Patch1:		%{name}-DATADIR.patch
-URL:		http://software.twotoasts.de/?page=midori
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	gtk+2-devel >= 2:2.6
-BuildRequires:	gtk-webkit-devel >= 1.0.0-0.r32822.1
+# Source0-md5:	ebfcce4c60859d051ce2df5cafc494a1
+URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
+BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	gtk+2-devel >= 2:2.10.6
+BuildRequires:	gtk-webkit-devel >= 1.0.3
 BuildRequires:	intltool
-BuildRequires:	libsexy-devel
-BuildRequires:	libtool
+BuildRequires:	libidn-devel >= 1.0
+BuildRequires:	libsoup-devel >= 2.24.0
+BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.198
+BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	sqlite3-devel >= 3.0
+BuildRequires:	unique-devel >= 0.9
 Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,54 +37,45 @@ użytkownika.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
-%{__glib_gettextize}
-%{__libtoolize}
-%{__intltoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure
-%{__make}
+./waf configure \
+	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
+	--docdir=%{_docdir}
+
+./waf build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-cat > $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop <<EOF
-[Desktop Entry]
-Encoding=UTF-8
-Name=Midori
-Comment=Lightweight web browser
-Comment[pl]=Lekka przeglądarka WWW
-Exec=%{name}
-Icon=web_browser_section.png
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=GNOME;GTK;Network;WebBrowser;
-EOF
+./waf install \
+	--destdir=$RPM_BUILD_ROOT
 
-%find_lang midori --with-gnome
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_desktop_database_post
+%update_icon_cache hicolor
 
 %postun
 %update_desktop_database_postun
+%update_icon_cache hicolor
 
-%files -f midori.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
-%attr(755,root,root) %{_bindir}/%{name}
-%{_desktopdir}/%{name}.desktop
-%{_iconsdir}/hicolor/scalable/apps/midori.svg
+%doc AUTHORS ChangeLog HACKING README TODO TRANSLATE
+%attr(755,root,root) %{_bindir}/midori
+%dir %{_libdir}/midori
+%attr(755,root,root) %{_libdir}/midori/libmouse-gestures.so
+%attr(755,root,root) %{_libdir}/midori/libpage-holder.so
+%attr(755,root,root) %{_libdir}/midori/libstatusbar-features.so
+%attr(755,root,root) %{_libdir}/midori/libtab-panel.so
+%{_sysconfdir}/xdg/midori
+%{_desktopdir}/midori.desktop
+%{_iconsdir}/hicolor/*/*/*.png
+%{_datadir}/midori
+%{_docdir}/midori
