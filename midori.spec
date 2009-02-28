@@ -52,6 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 ./waf install \
 	--destdir=$RPM_BUILD_ROOT
 
+mv $RPM_BUILD_ROOT%{_datadir}/locale/pt{_PT,}
+
 %find_lang %{name}
 
 %clean
