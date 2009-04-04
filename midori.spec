@@ -19,7 +19,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.0
-BuildRequires:	unique-devel >= 0.9
+BuildRequires:	libunique-devel >= 0.9
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
