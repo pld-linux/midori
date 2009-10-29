@@ -1,12 +1,15 @@
+%define mainver	0.2
+%define minorver 0
 Summary:	Web browser based on GTK+ WebCore
+Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.1.9
+Version:	%{mainver}.%{minorver}
 Release:	1
-License:	GPL v2+
+License:	LGPL v2
 Group:		X11/Applications/Networking
-Source0:	http://archive.xfce.org/src/apps/midori/0.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	faf5295091f47372352840b84c422149
+Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
+# Source0-md5:	805e2e59a93a0a4b7652d6547b2bd923
 URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
@@ -15,12 +18,12 @@ BuildRequires:	intltool
 BuildRequires:	libidn-devel >= 1.0
 BuildRequires:	libnotify-devel
 BuildRequires:	libsoup-devel >= 2.25.2
+BuildRequires:	libunique-devel >= 0.9
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.0
-BuildRequires:	libunique-devel >= 0.9
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -29,6 +32,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Midori is a lightweight GTK+ 2 web browser based on GTK+ WebCore. It
 features tabs, windows and session management, bookmarks stored with
 XBEL, searchbox based on OpenSearch, and user scripts support.
+
+%description -l hu.UTF-8
+Midori egy pehelysúlyú GTK+ 2 webböngésző GTK+ WebCore alapokon.
+Lehetőségei között fülek (tabok), ablak és munkafolyamat kezelés,
+könyvjelzők tárolása XBEL-lel, OpenSearch-ön alapuló keresődoboz és
+felhasználói szkript támogatás van.
 
 %description -l pl.UTF-8
 Midori to lekka przeglądarka dla GTK+ 2 oparta na GTK+ WebCore.
@@ -73,6 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/midori
 %attr(755,root,root) %{_libdir}/midori/*.so
 %{_sysconfdir}/xdg/midori
+%{_sysconfdir}/midori
 %{_desktopdir}/midori.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_datadir}/midori
