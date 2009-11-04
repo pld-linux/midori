@@ -1,0 +1,13 @@
+--- midori-0.2.0-orig/panels/midori-addons.c	2009-10-16 00:56:27.000000000 +0200
++++ midori-0.2.0/panels/midori-addons.c	2009-11-04 18:01:42.148068372 +0100
+@@ -286,8 +286,8 @@
+         GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,
+         _("Copy userscripts to the folder %s and "
+         "copy userstyles to the folder %s."),
+-        "~/.local/share/midori/scripts",
+-        "~/.local/share/midori/styles");
++        "~/.config/midori/scripts",
++        "~/.config/midori/styles");
+     gtk_dialog_run (GTK_DIALOG (dialog));
+     gtk_widget_destroy (dialog);
+ }
