@@ -13,6 +13,7 @@ Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
 # Source0-md5:	3cee94c9a22316504a3ba99bc92e0245
 URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
+BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	gtk-webkit-devel >= 1.0.3
@@ -23,6 +24,7 @@ BuildRequires:	libsoup-devel >= 2.25.2
 BuildRequires:	libunique-devel >= 0.9
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	pkgconfig
+BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.0
