@@ -7,7 +7,7 @@ Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
 Version:	%{mainver}.%{minorver}
-Release:	1
+Release:	2
 License:	LGPL v2
 Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
@@ -16,6 +16,7 @@ URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
+BuildRequires:	gtk-doc
 BuildRequires:	gtk-webkit-devel >= 1.0.3
 BuildRequires:	intltool
 BuildRequires:	libidn-devel >= 1.0
@@ -49,6 +50,13 @@ Obsługuje panele, okienka, zarządzanie sesjami, zakładki przechowywane
 przy użyciu XBEL, okno wyszukiwania oparte na OpenSearch oraz skrypty
 użytkownika.
 
+%package api-doc
+Summary:	API documentation of midori
+Group:		Documentation
+
+%description api-doc
+API documentation of midori.
+
 %prep
 %setup -q
 
@@ -56,7 +64,8 @@ użytkownika.
 ./waf configure \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
-	--docdir=%{_docdir}
+	--docdir=%{_docdir} \
+	--enable-apidocs
 
 ./waf build
 
@@ -93,3 +102,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/*/*.png
 %{_datadir}/midori
 %{_docdir}/midori
+
+%files api-doc
+%defattr(644,root,root,755)
+%doc _build_/docs/api/*
