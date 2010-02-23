@@ -19,7 +19,6 @@ BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	gtk-doc
 BuildRequires:	gtk-webkit-devel >= 1.0.3
 BuildRequires:	intltool
-BuildRequires:	libidn-devel >= 1.0
 BuildRequires:	libnotify-devel
 BuildRequires:	libsoup-devel >= 2.25.2
 BuildRequires:	libunique-devel >= 0.9
