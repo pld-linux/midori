@@ -13,6 +13,7 @@ Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
 # Source0-md5:	ccd2ae162993c2c92c9e0eac7778c62d
 URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
+BuildRequires:	docutils
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
