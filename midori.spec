@@ -29,6 +29,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.0
+BuildRequires:	vala
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2
 Provides:	wwwbrowser
