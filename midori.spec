@@ -1,7 +1,7 @@
 # TODO:
 # - docdir fix (both docdir/midori and docdir/midori-version exist too)
-%define mainver	0.2
-%define minorver 9
+%define mainver	0.3
+%define minorver 0
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
@@ -11,7 +11,7 @@ Release:	0.1
 License:	LGPL v2
 Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
-# Source0-md5:	a5821d8e31fa944374ed51c09ca4e740
+# Source0-md5:	ad1cf5449331fa800001c06765341219
 URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
 BuildRequires:	docutils
 BuildRequires:	gettext-devel
@@ -101,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/xdg/midori
 %{_desktopdir}/midori.desktop
 %{_iconsdir}/hicolor/*/*/*.png
+%{_iconsdir}/hicolor/*/*/*.svg
 %{_datadir}/midori
 %{_docdir}/midori
 
