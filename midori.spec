@@ -7,7 +7,7 @@ Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
 Version:	%{mainver}.%{minorver}
-Release:	0.1
+Release:	1
 License:	LGPL v2
 Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
@@ -18,10 +18,10 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
 BuildRequires:	gtk-doc
-BuildRequires:	gtk-webkit-devel >= 1.0.3
+BuildRequires:	gtk-webkit-devel >= 1.1.1
 BuildRequires:	intltool
 BuildRequires:	libnotify-devel
-BuildRequires:	libsoup-devel >= 2.25.2
+BuildRequires:	libsoup-devel >= 2.30.0
 BuildRequires:	libunique-devel >= 0.9
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	pkgconfig
@@ -32,7 +32,7 @@ BuildRequires:	sqlite3-devel >= 3.0
 BuildRequires:	vala
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
-Requires(post,postun):	hicolor-icon-theme
+Requires:	hicolor-icon-theme
 Provides:	wwwbrowser
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -53,12 +53,19 @@ Obsługuje panele, okienka, zarządzanie sesjami, zakładki przechowywane
 przy użyciu XBEL, okno wyszukiwania oparte na OpenSearch oraz skrypty
 użytkownika.
 
-%package api-doc
+%package apidocs
 Summary:	API documentation of midori
+Summary(pl.UTF-8):	Dokumentacja API midori
 Group:		Documentation
+Requires:	gtk-doc-common
+Provides:	midori-api-doc
+Obsoletes:	midori-api-doc
 
-%description api-doc
+%description apidocs
 API documentation of midori.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API midori.
 
 %prep
 %setup -q
@@ -78,7 +85,12 @@ rm -rf $RPM_BUILD_ROOT
 ./waf install \
 	--destdir=$RPM_BUILD_ROOT
 
-%{__rm} -rf $RPM_BUILD_ROOT%{_datadir}/locale/no
+# install API documentation
+install -d $RPM_BUILD_ROOT%{_gtkdocdir}/{katze,midori}
+cp _build_/docs/api/katze/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/katze
+cp _build_/docs/api/midori/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/midori
+
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 
 %find_lang %{name}
 
@@ -106,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/midori
 %{_docdir}/midori
 
-%files api-doc
+%files apidocs
 %defattr(644,root,root,755)
-%doc _build_/docs/api/*
+%{_gtkdocdir}/katze
+%{_gtkdocdir}/midori
