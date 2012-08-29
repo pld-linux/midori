@@ -7,7 +7,7 @@ Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
 Version:	%{mainver}.%{minorver}
-Release:	1
+Release:	2
 License:	LGPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
