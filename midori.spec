@@ -13,21 +13,25 @@ Source0:	http://archive.xfce.org/src/apps/midori/0.4/%{name}-%{version}.tar.bz2
 URL:		http://twotoasts.de/index.php/midori/
 BuildRequires:	gcr-devel
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.16.0
-BuildRequires:	gtk+2-devel >= 2:2.10.6
+BuildRequires:	glib2-devel >= 1:2.22.0
+BuildRequires:	gtk+2-devel >= 2:2.16.0
 BuildRequires:	gtk-doc
-BuildRequires:	gtk-webkit-devel >= 1.1.1
+BuildRequires:	gtk-webkit-devel >= 1.5.1
 BuildRequires:	intltool
 BuildRequires:	libnotify-devel
 BuildRequires:	libsoup-devel >= 2.30.0
 BuildRequires:	libunique-devel >= 0.9
 BuildRequires:	libxml2-devel >= 1:2.6.31
+BuildRequires:	libzeitgeist-devel >= 0.3.14
 BuildRequires:	pkgconfig
+#BuildRequires:	pkgconfig(Xss)
+#BuildRequires:	pkgconfig(gcr-3-gtk2) >= 2.32
+#BuildRequires:	pkgconfig(hildon-1)
 BuildRequires:	python-modules
-BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.6.19
 BuildRequires:	vala >= 0.14
+BuildRequires:	xorg-lib-libX11-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -73,7 +77,15 @@ Dokumentacja API midori.
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--docdir=%{_docdir} \
-	--enable-apidocs
+	--disable-granite \
+	--disable-gtk3 \
+	--disable-hildon \
+	--disable-tests \
+	--enable-addons \
+	--enable-apidocs \
+	--enable-libnotify \
+	--enable-unique \
+	%{nil}
 
 ./waf build
 
