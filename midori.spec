@@ -1,19 +1,18 @@
 # TODO:
 # - docdir fix (both docdir/midori and docdir/midori-version exist too)
-%define mainver	0.4
-%define minorver 4
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	%{mainver}.%{minorver}
-Release:	2
+Version:	0.4.7
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications/Networking
-Source0:	http://archive.xfce.org/src/apps/midori/%{mainver}/%{name}-%{version}.tar.bz2
-# Source0-md5:	a6578ebfd237c0f22cce49113b95f70c
-URL:		http://www.twotoasts.de/index.php?/pages/midori_summary.html
+Source0:	http://archive.xfce.org/src/apps/midori/0.4/%{name}-%{version}.tar.bz2
+# Source0-md5:	06db7b88a41e9b2265728960d5e98f35
+URL:		http://twotoasts.de/index.php/midori/
 BuildRequires:	docutils
+BuildRequires:	gcr-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gtk+2-devel >= 2:2.10.6
@@ -28,8 +27,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.198
 BuildRequires:	rpmbuild(macros) >= 1.311
-BuildRequires:	sqlite3-devel >= 3.0
-BuildRequires:	vala
+BuildRequires:	sqlite3-devel >= 3.6.19
+BuildRequires:	vala >= 0.14
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -87,10 +86,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # install API documentation
 install -d $RPM_BUILD_ROOT%{_gtkdocdir}/{katze,midori}
-cp _build_/docs/api/katze/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/katze
-cp _build_/docs/api/midori/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/midori
+cp _build/docs/api/katze/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/katze
+cp _build/docs/api/midori/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/midori
 
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/no
+# no -devel package, unlink
+%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/%{name}-0.4
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/vala/vapi
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
 
 %find_lang %{name}
 
@@ -107,12 +110,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING README TODO TRANSLATE
+%doc AUTHORS ChangeLog HACKING README TODO TRANSLATE INSTALL
 %attr(755,root,root) %{_bindir}/midori
 %dir %{_libdir}/midori
 %attr(755,root,root) %{_libdir}/midori/*.so
-%{_sysconfdir}/xdg/midori
+/etc/xdg/midori
 %{_desktopdir}/midori.desktop
+%{_desktopdir}/midori-private.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
 %{_datadir}/midori
