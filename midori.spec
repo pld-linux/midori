@@ -1,5 +1,3 @@
-# TODO:
-# - docdir fix (both docdir/midori and docdir/midori-version exist too)
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
@@ -91,7 +89,6 @@ Dokumentacja API midori.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 ./waf install \
 	--destdir=$RPM_BUILD_ROOT
 
@@ -99,6 +96,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_gtkdocdir}/{katze,midori}
 cp _build/docs/api/katze/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/katze
 cp _build/docs/api/midori/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/midori
+
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 # no -devel package, unlink
 %{__rm} -r $RPM_BUILD_ROOT%{_includedir}/%{name}-0.4
@@ -123,15 +122,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog HACKING README TODO TRANSLATE INSTALL
 %attr(755,root,root) %{_bindir}/midori
-%dir %{_libdir}/midori
-%attr(755,root,root) %{_libdir}/midori/*.so
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/*.so
 /etc/xdg/midori
 %{_desktopdir}/midori.desktop
 %{_desktopdir}/midori-private.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
-%{_datadir}/midori
-%{_docdir}/midori
+%{_datadir}/%{name}
 
 %files apidocs
 %defattr(644,root,root,755)
