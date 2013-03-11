@@ -1,13 +1,15 @@
+# TODO
+# - there's work in progress --enable-webkit2 option enabling WebKit2/ GTK+3
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.4.8
-Release:	3
+Version:	0.4.9
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://archive.xfce.org/src/apps/midori/0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	ce1b01fa5aa33d2ee50196df0c71e96f
+# Source0-md5:	d2b3c436c08022f47a0db6bca3772790
 Patch0:		homepage.patch
 URL:		http://twotoasts.de/index.php/midori/
 BuildRequires:	gcr-devel
