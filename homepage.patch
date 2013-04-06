@@ -1,11 +1,11 @@
---- ./midori/midori-settings.vala	2012-09-07 12:39:55.000000000 +0200
-+++ ./midori/midori-settings.vala.new	2012-09-08 15:37:25.190444847 +0200
-@@ -73,7 +73,7 @@
+--- midori-0.5.0/midori/midori-settings.vala.old	2013-04-06 19:20:44.241872840 +0200
++++ midori-0.5.0/midori/midori-settings.vala	2013-04-06 19:21:18.569070370 +0200
+@@ -108,7 +108,7 @@ namespace Midori {
          public bool open_tabs_next_to_current { get; set; default = true; }
          public bool always_show_tabbar { get; set; default = true; }
  
--        public string homepage { get; set; default = "http://www.google.com"; }
+-        public string homepage { get; set; default = "about:search"; }
 +        public string homepage { get; set; default = "https://www.pld-linux.org"; }
+         public string tabhome { get; set; default = "about:dial"; }
          static string default_download_folder () {
              return Environment.get_user_special_dir (UserDirectory.DOWNLOAD)
-                 ?? Environment.get_home_dir ();
