@@ -1,5 +1,6 @@
 # TODO
 # - there's work in progress --enable-webkit2 option enabling WebKit2/ GTK+3
+%bcond_with	gtk3
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
@@ -15,13 +16,16 @@ URL:		http://twotoasts.de/index.php/midori/
 BuildRequires:	gcr-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.22.0
-BuildRequires:	gtk+2-devel >= 2:2.16.0
+%{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.16.0}
+%{?with_gtk3:BuildRequires:	gtk+3-devel}
 BuildRequires:	gtk-doc
-BuildRequires:	gtk-webkit-devel >= 1.5.1
+%{!?with_gtk3:BuildRequires:	gtk-webkit-devel >= 1.5.1}
+%{?with_gtk3:BuildRequires:	gtk-webkit3-devel}
 BuildRequires:	intltool
 BuildRequires:	libnotify-devel
 BuildRequires:	libsoup-devel >= 2.30.0
-BuildRequires:	libunique-devel >= 0.9
+%{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9}
+%{?with_gtk3:BuildRequires:	libunique3-devel}
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libzeitgeist-devel >= 0.3.14
 BuildRequires:	pkgconfig
@@ -80,7 +84,8 @@ Dokumentacja API midori.
 	--libdir=%{_libdir} \
 	--docdir=%{_docdir} \
 	--disable-granite \
-	--disable-gtk3 \
+	%{?with_gtk3:--enable-gtk3} \
+	%{!?with_gtk3:--disable-gtk3} \
 	--disable-tests \
 	--enable-addons \
 	--enable-apidocs \
