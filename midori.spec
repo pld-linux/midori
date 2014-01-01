@@ -13,6 +13,7 @@ Source0:	http://midori-browser.org/downloads/%{name}_%{version}_all_.tar.bz2
 # Source0-md5:	62ee86eb103b74efe71d40e343120a3c
 Patch0:		homepage.patch
 Patch1:		gtk-doc-path.patch
+Patch2:		soversion.patch
 URL:		http://midori-browser.org/
 BuildRequires:	cmake >= 2.6.0
 BuildRequires:	gcr-devel
@@ -82,6 +83,7 @@ Dokumentacja API midori.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 install -d build
@@ -111,10 +113,12 @@ rm -rf $RPM_BUILD_ROOT
 %post
 %update_desktop_database_post
 %update_icon_cache hicolor
+/sbin/ldconfig
 
 %postun
 %update_desktop_database_postun
 %update_icon_cache hicolor
+/sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
