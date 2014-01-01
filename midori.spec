@@ -5,14 +5,16 @@ Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.5.2
+Version:	0.5.6
 Release:	1
 License:	LGPL v2+
 Group:		X11/Applications/Networking
-Source0:	http://archive.xfce.org/src/apps/midori/0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	e2c1e0b617397ec9f9eef4fdb47b3565
+Source0:	http://midori-browser.org/downloads/%{name}_%{version}_all_.tar.bz2
+# Source0-md5:	62ee86eb103b74efe71d40e343120a3c
 Patch0:		homepage.patch
-URL:		http://twotoasts.de/index.php/midori/
+Patch1:		gtk-doc-path.patch
+URL:		http://midori-browser.org/
+BuildRequires:	cmake >= 2.6.0
 BuildRequires:	gcr-devel
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.22.0
@@ -24,6 +26,7 @@ BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	libnotify-devel
 BuildRequires:	libsoup-devel >= 2.30.0
+BuildRequires:	libsoup-gnome-devel >= 2.30.0
 %{!?with_gtk3:BuildRequires:	libunique-devel >= 0.9}
 %{?with_gtk3:BuildRequires:	libunique3-devel}
 BuildRequires:	libxml2-devel >= 1:2.6.31
@@ -36,6 +39,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.6.19
 BuildRequires:	vala >= 0.14
+BuildRequires:	vala-zeitgeist1
 BuildRequires:	xorg-lib-libX11-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
@@ -77,40 +81,26 @@ Dokumentacja API midori.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-./waf configure \
-	--prefix=%{_prefix} \
-	--libdir=%{_libdir} \
-	--docdir=%{_docdir} \
-	--disable-granite \
-	%{?with_gtk3:--enable-gtk3} \
-	%{!?with_gtk3:--disable-gtk3} \
-	--disable-tests \
-	--enable-addons \
-	--enable-apidocs \
-	--enable-libnotify \
-	--enable-unique \
-	%{nil}
+install -d build
+cd build
+%cmake \
+	%{?with_gtk3:-DUSE_GTK3=1} \
+	-DUSE_APIDOCS=1 \
+	.. \
 
-./waf build
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-./waf install \
-	--destdir=$RPM_BUILD_ROOT
-
-# install API documentation
-install -d $RPM_BUILD_ROOT%{_gtkdocdir}/{katze,midori}
-cp _build/docs/api/katze/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/katze
-cp _build/docs/api/midori/html/* $RPM_BUILD_ROOT%{_gtkdocdir}/midori
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 # no -devel package, unlink
-%{__rm} -r $RPM_BUILD_ROOT%{_includedir}/%{name}-0.5
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/vala/vapi
-
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
 
 %find_lang %{name}
@@ -128,9 +118,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog HACKING README TODO TRANSLATE INSTALL
+%doc AUTHORS ChangeLog HACKING README TODO TRANSLATE
 %attr(755,root,root) %{_bindir}/midori
 %dir %{_libdir}/%{name}
+%attr(755,root,root) %ghost %{_libdir}/libmidori-core.so.?
+%attr(755,root,root) %{_libdir}/libmidori-core.so.*.*
 %attr(755,root,root) %{_libdir}/%{name}/*.so
 /etc/xdg/midori
 %{_desktopdir}/midori.desktop
@@ -143,3 +135,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_gtkdocdir}/katze
 %{_gtkdocdir}/midori
+
