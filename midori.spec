@@ -17,7 +17,7 @@ Patch2:		soversion.patch
 URL:		http://midori-browser.org/
 BuildRequires:	cmake >= 2.6.0
 BuildRequires:	gcr-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.22.0
 %{!?with_gtk3:BuildRequires:	gtk+2-devel >= 2:2.16.0}
 %{?with_gtk3:BuildRequires:	gtk+3-devel}
