@@ -1,0 +1,44 @@
+=== modified file 'extensions/transfers.vala'
+--- extensions/transfers.vala	2016-04-02 08:15:11 +0000
++++ extensions/transfers.vala	2017-02-15 18:50:47 +0000
+@@ -455,7 +455,7 @@
+                 if (notifications.length () == 1)
+                     msg = _("The file '<b>%s</b>' has been downloaded.").printf (filename);
+                 else
+-                    msg = _("'<b>%s</b>' and %d other files have been downloaded.").printf (filename, notifications.length ());
++                    msg = _("'<b>%s</b>' and %d other files have been downloaded.").printf (filename, (int) notifications.length ());
+                 get_app ().send_notification (_("Transfer completed"), msg);
+                 notifications = new GLib.List<string> ();
+             }
+
+=== modified file 'midori/midori-notebook.vala'
+--- midori/midori-notebook.vala	2016-04-02 08:15:11 +0000
++++ midori/midori-notebook.vala	2017-02-15 18:50:47 +0000
+@@ -10,7 +10,7 @@
+ */
+ 
+ namespace Midori {
+-    protected class Tally : Gtk.EventBox {
++    internal class Tally : Gtk.EventBox {
+         public Midori.Tab tab { get; set; }
+         Gtk.Spinner spinner;
+         public Gtk.Label label;
+@@ -22,7 +22,7 @@
+         public bool close_button_left { get; set; default = false; }
+         public bool close_button_visible { get; set; default = false; }
+ 
+-        protected Tally (Midori.Tab tab) {
++        internal Tally (Midori.Tab tab) {
+             this.tab = tab;
+             box = new Gtk.HBox (false, 1);
+             add (box);
+@@ -175,7 +175,7 @@
+         int last_tab_size = 0;
+ 
+ #if !HAVE_GTK3
+-        static const string style_fixup = """
++        const string style_fixup = """
+             style "midori-close-button-style"
+             {
+             GtkWidget::focus-padding = 0
+

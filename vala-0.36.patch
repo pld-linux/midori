@@ -1,0 +1,60 @@
+diff -ur midori-0.5.11/extensions/adblock/widgets.vala midori-0.5.11.vala/extensions/adblock/widgets.vala
+--- midori-0.5.11/extensions/adblock/widgets.vala	2015-08-30 13:56:26.000000000 +0200
++++ midori-0.5.11.vala/extensions/adblock/widgets.vala	2017-04-15 10:29:03.324815886 +0200
+@@ -227,7 +227,7 @@
+                             liststore.get (iter, 0, out sub);
+                             if (sub.mutable) {
+                                 config.remove (sub);
+-                                liststore.remove (iter);
++                                liststore.remove (ref iter);
+                                 return true;
+                             }
+                         }
+diff -ur midori-0.5.11/extensions/apps.vala midori-0.5.11.vala/extensions/apps.vala
+--- midori-0.5.11/extensions/apps.vala	2015-08-30 13:56:26.000000000 +0200
++++ midori-0.5.11.vala/extensions/apps.vala	2017-04-15 10:29:09.508222087 +0200
+@@ -265,7 +265,7 @@
+                             store.get (iter, 0, out launcher);
+                             try {
+                                 launcher.file.trash (null);
+-                                store.remove (iter);
++                                store.remove (ref iter);
+ 
+                                 string filename = Midori.Download.clean_filename (launcher.name);
+ #if HAVE_WIN32
+diff -ur midori-0.5.11/extensions/history-list.vala midori-0.5.11.vala/extensions/history-list.vala
+--- midori-0.5.11/extensions/history-list.vala	2015-08-30 13:56:26.000000000 +0200
++++ midori-0.5.11.vala/extensions/history-list.vala	2017-04-15 10:28:23.157677358 +0200
+@@ -223,7 +223,7 @@
+                     FixMe: the retrun value of `Gtk.ListStore.remove` should be checked
+                     Note:  in some cases the return value of `Gtk.ListStore.remove` is wrong
+                 */
+-                model.remove (iter);
++                model.remove (ref iter);
+                 this.browser.close_tab (view);
+                 if (length > 2)
+                     this.resize_treeview ();
+diff -ur midori-0.5.11/extensions/notes.vala midori-0.5.11.vala/extensions/notes.vala
+--- midori-0.5.11/extensions/notes.vala	2015-08-30 13:56:26.000000000 +0200
++++ midori-0.5.11.vala/extensions/notes.vala	2017-04-15 10:27:46.273913128 +0200
+@@ -116,7 +116,7 @@
+                     if (current_note == note) {
+                         current_note = null;
+                     }
+-                    notes_list_store.remove (iter);
++                    notes_list_store.remove (ref iter);
+                     break;
+                 }
+             } while (notes_list_store.iter_next (ref iter));
+diff -ur midori-0.5.11/extensions/transfers.vala midori-0.5.11.vala/extensions/transfers.vala
+--- midori-0.5.11/extensions/transfers.vala	2017-04-15 10:32:21.867181783 +0200
++++ midori-0.5.11.vala/extensions/transfers.vala	2017-04-15 10:28:56.028063308 +0200
+@@ -275,7 +275,7 @@
+                     Transfer found;
+                     store.get (iter, 0, out found);
+                     if (transfer == found) {
+-                        store.remove (iter);
++                        store.remove (ref iter);
+                         break;
+                     }
+                 } while (store.iter_next (ref iter));

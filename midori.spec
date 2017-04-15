@@ -1,19 +1,19 @@
-# TODO
-# - there's work in progress --enable-webkit2 option enabling WebKit2/ GTK+3
-%bcond_with	gtk3
+%bcond_without	gtk3
 Summary:	Web browser based on GTK+ WebCore
 Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
-Version:	0.5.6
-Release:	1
+Version:	0.5.11
+Release:	0.1
 License:	LGPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://midori-browser.org/downloads/%{name}_%{version}_all_.tar.bz2
-# Source0-md5:	62ee86eb103b74efe71d40e343120a3c
+# Source0-md5:	fcc03ef759fce4fe9f2446d9da4a065e
 Patch0:		homepage.patch
 Patch1:		gtk-doc-path.patch
 Patch2:		soversion.patch
+Patch3:		vala-0.35.patch
+Patch4:		vala-0.36.patch
 URL:		http://midori-browser.org/
 BuildRequires:	cmake >= 2.6.0
 BuildRequires:	gcr-devel
@@ -40,7 +40,7 @@ BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	sqlite3-devel >= 3.6.19
 BuildRequires:	vala >= 0.14
-BuildRequires:	vala-zeitgeist1
+BuildRequires:	vala-zeitgeist
 BuildRequires:	xorg-lib-libX11-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk-update-icon-cache
@@ -85,6 +85,8 @@ Dokumentacja API midori.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p0
+%patch4 -p1
 
 %build
 install -d build
@@ -101,8 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{nap,no}
 
 %find_lang %{name}
 
@@ -133,9 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
 %{_datadir}/%{name}
+%{_datadir}/appdata/midori.appdata.xml
 
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/katze
 %{_gtkdocdir}/midori
-
