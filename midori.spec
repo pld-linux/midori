@@ -4,7 +4,7 @@ Summary(hu.UTF-8):	GTK+ WebCore alapú web-böngésző
 Summary(pl.UTF-8):	Przeglądarka WWW oparta na GTK+ WebCore
 Name:		midori
 Version:	0.5.11
-Release:	0.1
+Release:	1
 License:	LGPL v2+
 Group:		X11/Applications/Networking
 Source0:	http://midori-browser.org/downloads/%{name}_%{version}_all_.tar.bz2
@@ -14,6 +14,10 @@ Patch1:		gtk-doc-path.patch
 Patch2:		soversion.patch
 Patch3:		vala-0.35.patch
 Patch4:		vala-0.36.patch
+Patch5:		0002-Update-version-of-Chromium-s-User-Agent-string.patch
+Patch6:		0003-Improve-error-message-when-Trust-this-website-doesn-.patch
+Patch7:		0004-Improve-security-by-making-sure-that-we-use-a-safe-s.patch
+Patch8:		0005-Passing-non-NULL-string-sourceURL-to-JSEvaluateScrip.patch
 URL:		http://midori-browser.org/
 BuildRequires:	cmake >= 2.6.0
 BuildRequires:	gcr-devel
@@ -87,6 +91,10 @@ Dokumentacja API midori.
 %patch2 -p1
 %patch3 -p0
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %build
 install -d build
